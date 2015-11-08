@@ -1,3 +1,22 @@
+## Installation
+
+```bash
+# symlink the `~/.vim`
+ln -s ~/Dropbox/vim ~/.vim
+
+# symlink the `~/.vimrc`
+ln -s ~/Dropbox/vim/vimrc ~/.vimrc
+
+# symlink the `~/.zprofile`
+ln -s ~/Dropbox/vim/zprofile ~/.zprofile
+```
+
+Then, follow [this guide](https://github.com/mattma/docs/blob/master/tools/macvim.md)
+
+## TODO
+
+Adding any item from this list. https://github.com/skwp/dotfiles/tree/master/doc/vim
+
 ## Bundle list
 
 1. [ack.vim](https://github.com/mileszs/ack.vim)
@@ -165,3 +184,14 @@ A code-completion engine for Vim
 33. [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
 
 A Vim plugin which shows a git diff in the gutter (sign column) and stages/reverts hunks.
+
+
+34. [vim-easymotion](https://github.com/easymotion/vim-easymotion)
+
+Vim motions on speed
+
+Usage:
+
+Trigger: <leader><leader>
+w  to find a word
+fo  to find letter "o"

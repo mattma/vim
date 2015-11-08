@@ -1,46 +1,124 @@
 " :so ~/.vimrc
-"+++ General +++
+
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+
+" ================ General Config ====================
+
 set shell=zsh
-let mapleader=","
-set noswapfile
 autocmd BufWritePre * :%s/\s\+$//e "strip trailing white space
 set nrformats=hex
-set nocompatible
-syntax on
-filetype plugin indent on
 set noerrorbells
-set nobackup
 set encoding=utf-8
 set autowrite
-set autoread
 set laststatus=2
-set backspace=indent,eol,start
+set number                                 " show line numbers
+set backspace=indent,eol,start  " Allow backspace in insert mode
+set history=1000                        " Store lots of :cmdline history
+set showcmd                             " Show incomplete cmds down the bottom
+set showmode                           " Show current mode down the bottom
+set gcr=a:blinkon0                     " Disable cursor blink
+set visualbell                              " No sounds
+set autoread                              " Reload files changed outside vim
+
+" This makes vim act like all other editors, buffers can
+" exist in the background without being in a window.
+" http://items.sjbach.com/319/configuring-vim-right
+set hidden
+
+"turn on syntax highlighting
+syntax on
+
+" Change leader to a comma because the backslash is too far away
+" That means all \x commands turn into ,x
+" The mapleader has to be set before vundle starts loading all
+" the plugins.
+let mapleader=","
+
 set clipboard=unnamed
 " Automatically change the current directory
 autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
 set wildmenu
 set wildmode=full
-set scrolloff=5
 let $PATH = "/usr/local/bin".$PATH
 
-"+++ Display Settings +++
+
+" ================ Turn Off Swap Files ==============
+
+set noswapfile
+set nobackup
+set nowb
+
+
+" ================ Persistent Undo ==================
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+if has('persistent_undo') && !isdirectory(expand('~').'/.vim/backups')
+  silent !mkdir ~/.vim/backups > /dev/null 2>&1
+  set undodir=~/.vim/backups
+  set undofile
+endif
+
+
+" ================ Indentation ======================
+
+set autoindent
+set smartindent
+set smarttab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set expandtab
+
+" Auto indent pasted text
+nnoremap p p=`]<C-o>
+nnoremap P P=`]<C-o>
+
+filetype plugin on
+filetype indent on
+
+" Display tabs and trailing spaces visually
+set list listchars=tab:\ \ ,trail:·
+
+set nowrap       " Don't wrap lines
+set linebreak    " Wrap lines at convenient points
+
+"work great when you are reading/writing in text format file
+" set wrap
+" set showbreak=>\
+
+
+" ================ Folds ============================
+
+set foldmethod=indent   " fold based on indent
+set foldnestmax=3         " deepest fold is 3 levels
+set nofoldenable            " dont fold by default
+
+
+" ================ Scrolling ========================
+
+set scrolloff=8               " Start scrolling when we're 8 lines away from margins
+set sidescrolloff=15
+set sidescroll=1
+
+
+" ================ Search ===========================
+
+set incsearch               " Find the next match as we type the search
+set hlsearch                 " Highlight searches by default
+set ignorecase             " Ignore case when searching...
+set smartcase              " ...unless we type a capital
+
+
+" ================ Display Settings ====================
 set t_Co=256
 set guifont=Meslo\ LG\ M\ DZ:h20
 colorscheme molokai
-set listchars=tab:\.\ ,trail:·
 set list
-" show line numbers
-set number
-" show command in bottom bar
-set showcmd
-set showmode
 set splitright
 set splitbelow
 set showmatch
-set incsearch
-set hlsearch
-set ignorecase
-set smartcase
 
 let i = 1
 while i <= 9
@@ -57,17 +135,6 @@ set statusline=win:%{WindowNumber()}
 " highlight current line
 set cursorline
 set relativenumber
-set tabstop=2
-set shiftwidth=2
-set expandtab
-set softtabstop=2
-set autoindent
-set smartindent
-
-"work great when you are reading/writing in text format file
-" set wrap
-" set linebreak
-" set showbreak=>\
 
 
 "+++ Pathogen +++
